@@ -11,7 +11,7 @@
     },
     "autoload": {
         "psr-4": {
-            "interactivesolutions\honeycomblanguages\": "src/"
+            "interactivesolutions\\honeycomblanguages\\": "src/"
         }
     },
     "minimum-stability": "dev"
