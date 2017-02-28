@@ -20,10 +20,10 @@ class CreateHcLanguagesTable extends Migration {
 			$table->string('language');
 			$table->string('native_name');
 			$table->string('iso_639_1');
-			$table->string('iso_639_2')->unique('iso_639_2_UNIQUE');
-			$table->boolean('front_end')->default(false);
-			$table->boolean('back_end')->default(false);
-			$table->boolean('content')->default(false);
+			$table->string('iso_639_2');
+			$table->boolean('front_end')->default(0);
+			$table->boolean('back_end')->default(0);
+			$table->boolean('content')->default(0);
 			$table->timestamps();
 			$table->softDeletes();
 		});

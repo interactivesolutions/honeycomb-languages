@@ -4,7 +4,7 @@ namespace interactivesolutions\honeycomblanguages\database\seeds;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use interactivesolutions\honeycomblanguages\app\models\Languages;
+use interactivesolutions\honeycomblanguages\app\models\HCLanguages;
 use League\Flysystem\Exception;
 
 class LanguagesSeeder extends Seeder
@@ -212,10 +212,10 @@ class LanguagesSeeder extends Seeder
 
                 $language['id'] = $language['iso_639_2'];
 
-                $existing = Languages::where ('id', $language['id'])->first ();
+                $existing = HCLanguages::where ('id', $language['id'])->first ();
 
                 if (!$existing)
-                    Languages::create($language);
+                    HCLanguages::create($language);
             }
         } catch (\Exception $e) {
             DB::rollback();

@@ -1,21 +1,32 @@
 {
-    "general":
-    {
+    "general": {
         "serviceProviderNameSpace": "HCLanguages"
     },
-    "formData":
-    [
+    "formData": {},
+    "adminMenu": [
+        {
+            "path": "admin\/languages",
+            "translation": "HCLanguages::languages.page_title",
+            "icon": "fa-language",
+            "aclPermission": "interactivesolutions_honeycomb_languages_languages_list"
+        }
     ],
-    "adminMenu":
-    [
-    ],
-    "acl":
-    {
-        "permissions" :
-        [
+    "acl": {
+        "permissions": [
+            {
+                "name": "admin.languages",
+                "controller": "interactivesolutions\\honeycomblanguages\\app\\http\\controllers\\HCLanguagesController",
+                "actions": [
+                    "interactivesolutions_honeycomb_languages_languages_list",
+                    "interactivesolutions_honeycomb_languages_languages_update"
+                ]
+            }
         ],
-        "rolesActions" :
-        [
-        ]
+        "rolesActions": {
+            "project-admin": [
+                "interactivesolutions_honeycomb_languages_languages_list",
+                "interactivesolutions_honeycomb_languages_languages_update"
+            ]
+        }
     }
 }

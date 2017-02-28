@@ -13,7 +13,7 @@ class HCLanguagesServiceProvider extends ServiceProvider
      */
     protected $commands = [];
 
-    protected $namespace = 'interactivesolutions\honeycomblanguages\http\controllers';
+    protected $namespace = 'interactivesolutions\honeycomblanguages\app\http\controllers';
 
     /**
      * Bootstrap the application services.
@@ -59,11 +59,6 @@ class HCLanguagesServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../database/migrations/' => database_path('/migrations'),
         ], 'migrations');
-
-        // Publishing assets
-        $this->publishes([
-            __DIR__ . '/../public' => public_path('honeycomb'),
-        ], 'public');
     }
 
     /**
