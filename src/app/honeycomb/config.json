@@ -1,0 +1,21 @@
+{
+    "general":
+    {
+        "serviceProviderNameSpace": "HCLanguages"
+    },
+    "formData":
+    [
+    ],
+    "adminMenu":
+    [
+    ],
+    "acl":
+    {
+        "permissions" :
+        [
+        ],
+        "rolesActions" :
+        [
+        ]
+    }
+}
