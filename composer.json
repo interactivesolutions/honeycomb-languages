@@ -1,9 +1,23 @@
 {
     "name": "interactivesolutions/honeycomb-languages",
-    "description": "",
-    "keywords": [],
+    "description": "HoneyComb languages package. Information about languages arround the world. (Language family, language, native name, iso codes). Availability to select language for front end, back end, conttent.",
+    "keywords": ["HoneyComb", "package", "languages", "information", "world languages", "language family", "language", "native name", "iso codes", "front end language", "back end language", "content language"],
+    "homepage": "https://github.com/interactivesolutions/honeycomb-languages/",
     "license": "MIT",
-    "authors": [],
+    "authors": [
+        {
+            "name": "Jevgenij Dmitrijev",
+            "email": "jd@interactivesolutions.lt"
+        },
+        {
+            "name": "Mantas Gelčius",
+            "email": "mantas.gelcius@gmail.com"
+        },
+        {
+            "name": "Liutauras Kavaliauskas",
+            "email": "liutauraskav@gmail.com"
+        }
+    ],
     "repositories": [],
     "require": {
         "php": ">=7.0.0",
@@ -13,6 +27,5 @@
         "psr-4": {
             "interactivesolutions\\honeycomblanguages\\": "src/"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
