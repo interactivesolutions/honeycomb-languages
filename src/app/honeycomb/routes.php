@@ -1,6 +1,7 @@
 <?php
 
-//./packages//interactivesolutions/honeycomb-languages/src/app/routes/routes.languages.php
+//interactivesolutions/honeycomb-languages/src/app/routes/routes.languages.php
+
 
 Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
 {
