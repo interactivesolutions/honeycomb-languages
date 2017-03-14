@@ -19,6 +19,10 @@
                 "actions": [
                     "interactivesolutions_honeycomb_languages_languages_list",
                     "interactivesolutions_honeycomb_languages_languages_update"
+                ],
+                "actionsApps": [
+                    "interactivesolutions_honeycomb_languages_languages_list",
+                    "interactivesolutions_honeycomb_languages_languages_update"
                 ]
             }
         ],
