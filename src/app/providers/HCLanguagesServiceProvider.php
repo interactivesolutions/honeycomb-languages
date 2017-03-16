@@ -79,7 +79,7 @@ class HCLanguagesServiceProvider extends ServiceProvider
     {
         $filePath = __DIR__ . '/../../app/honeycomb/routes.php';
 
-        if ($filePath)
+        if (file_exists($filePath))
             \Route::group (['namespace' => $this->namespace], function ($router) use ($filePath) {
                 require $filePath;
             });
