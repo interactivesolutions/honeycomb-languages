@@ -11,6 +11,8 @@ class HCLanguagesServiceProvider extends HCBaseServiceProvider
     protected $commands = [];
 
     protected $namespace = 'interactivesolutions\honeycomblanguages\app\http\controllers';
+    public $serviceProviderNameSpace = 'HCLanguages';
+
 }
 
 
