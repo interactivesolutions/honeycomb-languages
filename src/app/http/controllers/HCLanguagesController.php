@@ -9,6 +9,13 @@ class HCLanguagesController extends HCBaseController
 {
 
     /**
+     * List of available keys for strict update
+     *
+     * @var array
+     */
+    protected $strictUpdateKeys = ['content', 'front_end', 'back_end'];
+
+    /**
      * Returning configured admin view
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -88,7 +95,7 @@ class HCLanguagesController extends HCBaseController
      */
     protected function __updateStrict(string $id)
     {
-        HCLanguages::where('id', $id)->update(request()->all());
+        HCLanguages::where('id', $id)->update($this->getStrictRequestParameters());
 
         return $this->getSingleRecord($id);
     }
