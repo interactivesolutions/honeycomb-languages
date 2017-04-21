@@ -58,7 +58,7 @@ if (!function_exists('getHCLanguages'))
         $list = HCLanguages::where($key, 1)->get();
 
         if ($asArray)
-            return $list->pluck('iso_639_2')->toArray();
+            return $list->pluck('iso_639_1')->toArray();
 
         return $list;
     }
