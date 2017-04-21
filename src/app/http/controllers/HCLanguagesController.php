@@ -1,9 +1,10 @@
 <?php namespace interactivesolutions\honeycomblanguages\app\http\controllers;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Session;
+use interactivesolutions\honeycombcore\errors\facades\HCLog;
 use interactivesolutions\honeycombcore\http\controllers\HCBaseController;
 use interactivesolutions\honeycomblanguages\app\models\HCLanguages;
-use interactivesolutions\honeycomblanguages\app\validators\HCLanguagesValidator;
 
 class HCLanguagesController extends HCBaseController
 {
@@ -164,6 +165,7 @@ class HCLanguagesController extends HCBaseController
      * @param $id
      * @return mixed
      */
+
     public function getSingleRecord(string $id)
     {
         $with = [];
@@ -176,5 +178,41 @@ class HCLanguagesController extends HCBaseController
             ->firstOrFail();
 
         return $record;
+    }
+
+    public function changeLanguage (string $location, string $lang)
+    {
+        switch ($location)
+        {
+            case 'front-end' :
+
+                if (in_array($lang, getHCFrontEndLanguages()))
+                {
+                    session('front-end', $lang);
+                    session('content', $lang);
+                }
+                else
+                    return HCLog::error('L-001', trans('HCTranslations::core.language_not_found'));
+
+                break;
+
+            case 'back-end' :
+
+                if (in_array($lang, getHCBackEndLanguages()))
+                    Session::set('back-end', $lang);
+                else
+                    return HCLog::error('L-002', trans('HCTranslations::core.language_not_found'));
+
+                break;
+
+            case 'content' :
+
+                if (in_array($lang, getHCContentLanguages()))
+                    Session::set('content', $lang);
+                else
+                    return HCLog::error('L-003', trans('HCTranslations::core.language_not_found'));
+
+                break;
+        }
     }
 }

@@ -7,11 +7,12 @@ if (!function_exists ('getHCFrontEndLanguages')) {
     /**
      * Getting available frontEnd languages
      *
+     * @param bool $asArray
      * @return mixed
      */
-    function getHCFrontEndLanguages()
+    function getHCFrontEndLanguages(bool $asArray = true)
     {
-        return HCLanguages::where('front_end', 1)->select('id', 'iso_639_1', 'language')->get();
+        return getHCLanguages('front_end', $asArray);
     }
 }
 
@@ -20,11 +21,12 @@ if (!function_exists ('getHCBackEndLanguages')) {
     /**
      * Getting available backend languages
      *
+     * @param bool $asArray
      * @return mixed
      */
-    function getHCBackEndLanguages()
+    function getHCBackEndLanguages(bool $asArray = true)
     {
-        return HCLanguages::where('back_end', 1)->select('id', 'iso_639_1', 'language')->get();
+        return getHCLanguages('back_end', $asArray);
     }
 }
 
@@ -33,10 +35,31 @@ if (!function_exists ('getHCContentLanguages')) {
     /**
      * Getting available content languages
      *
+     * @param bool $asArray
      * @return mixed
      */
-    function getHCContentLanguages()
+    function getHCContentLanguages(bool $asArray = true)
     {
-        return HCLanguages::where('content', 1)->select('id', 'iso_639_1', 'language')->get();
+        return getHCLanguages('content', $asArray);
+    }
+}
+
+if (!function_exists('getHCLanguages'))
+{
+    /**
+     * Retrieving languages
+     *
+     * @param string $key
+     * @param bool $asArray
+     * @return mixed
+     */
+    function getHCLanguages(string $key, bool $asArray = true)
+    {
+        $list = HCLanguages::where($key, 1)->get();
+
+        if ($asArray)
+            return $list->pluck('iso_639_2')->toArray();
+
+        return $list;
     }
 }
