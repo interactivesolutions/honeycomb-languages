@@ -21,7 +21,7 @@ class HCLanguagesController extends HCBaseController
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function adminView()
+    public function adminIndex()
     {
         $config = [
             'title'       => trans('HCLanguages::languages.page_title'),
@@ -32,7 +32,7 @@ class HCLanguagesController extends HCBaseController
             'headers'     => $this->getAdminListHeader(),
         ];
 
-        if ($this->user()->can('interactivesolutions_honeycomb_languages_languages_update')) {
+        if (auth()->user()->can('interactivesolutions_honeycomb_languages_languages_update')) {
             $config['actions'][] = 'update';
         }
 
@@ -94,11 +94,11 @@ class HCLanguagesController extends HCBaseController
      * @param string $id
      * @return mixed
      */
-    protected function __updateStrict(string $id)
+    protected function __apiUpdateStrict(string $id)
     {
         HCLanguages::where('id', $id)->update($this->getStrictRequestParameters());
 
-        return $this->getSingleRecord($id);
+        return $this->apiShow($id);
     }
 
     /**
@@ -107,7 +107,7 @@ class HCLanguagesController extends HCBaseController
      * @param array $select
      * @return mixed
      */
-    public function createQuery(array $select = null)
+    protected function createQuery(array $select = null)
     {
         $with = [];
 
@@ -124,7 +124,7 @@ class HCLanguagesController extends HCBaseController
         $list = $this->checkForDeleted($list);
 
         // add search items
-        $list = $this->listSearch($list);
+        $list = $this->search($list);
 
         // ordering data
         $list = $this->orderData($list, $select);
@@ -166,7 +166,7 @@ class HCLanguagesController extends HCBaseController
      * @return mixed
      */
 
-    public function getSingleRecord(string $id)
+    public function apiShow(string $id)
     {
         $with = [];
 
