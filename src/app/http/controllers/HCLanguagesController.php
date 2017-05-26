@@ -132,31 +132,24 @@ class HCLanguagesController extends HCBaseController
         return $list;
     }
 
-
-
     /**
      * List search elements
-     * @param $list
-     * @return mixed
+     * @param Builder $query
+     * @param string $phrase
+     * @return Builder
      */
-    protected function listSearch(Builder $list)
+    protected function searchQuery(Builder $query, string $phrase)
     {
-        if (request()->has('q')) {
-            $parameter = request()->input('q');
-
-            $list = $list->where(function ($query) use ($parameter) {
-                $query->where('language_family', 'LIKE', '%' . $parameter . '%')
-                    ->orWhere('language', 'LIKE', '%' . $parameter . '%')
-                    ->orWhere('native_name', 'LIKE', '%' . $parameter . '%')
-                    ->orWhere('iso_639_1', 'LIKE', '%' . $parameter . '%')
-                    ->orWhere('iso_639_2', 'LIKE', '%' . $parameter . '%')
-                    ->orWhere('front_end', 'LIKE', '%' . $parameter . '%')
-                    ->orWhere('back_end', 'LIKE', '%' . $parameter . '%')
-                    ->orWhere('content', 'LIKE', '%' . $parameter . '%');
-            });
-        }
-
-        return $list;
+        return $query->where (function (Builder $query) use ($phrase) {
+            $query->where('language_family', 'LIKE', '%' . $phrase . '%')
+                ->orWhere('language', 'LIKE', '%' . $phrase . '%')
+                ->orWhere('native_name', 'LIKE', '%' . $phrase . '%')
+                ->orWhere('iso_639_1', 'LIKE', '%' . $phrase . '%')
+                ->orWhere('iso_639_2', 'LIKE', '%' . $phrase . '%')
+                ->orWhere('front_end', 'LIKE', '%' . $phrase . '%')
+                ->orWhere('back_end', 'LIKE', '%' . $phrase . '%')
+                ->orWhere('content', 'LIKE', '%' . $phrase . '%');
+        });
     }
 
     /**
