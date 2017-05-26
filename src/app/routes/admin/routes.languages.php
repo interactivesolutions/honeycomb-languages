@@ -2,7 +2,7 @@
 
 Route::group(['prefix' => env('HC_ADMIN_URL'), 'middleware' => ['web', 'auth']], function ()
 {
-    Route::get('languages', ['as' => 'admin.languages', 'middleware' => ['acl:interactivesolutions_honeycomb_languages_languages_list'], 'uses' => 'HCLanguagesController@adminIndex']);
+    Route::get('languages', ['as' => 'admin.languages.index', 'middleware' => ['acl:interactivesolutions_honeycomb_languages_languages_list'], 'uses' => 'HCLanguagesController@adminIndex']);
 
     Route::group(['prefix' => 'api/languages'], function ()
     {
