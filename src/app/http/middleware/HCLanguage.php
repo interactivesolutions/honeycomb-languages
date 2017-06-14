@@ -10,7 +10,7 @@ class HCLanguage
     {
         $locale = app()->getLocale();
 
-        if ($request->segment (1) == env('HC_ADMIN_URL'))
+        if ($request->segment (1) == config('hc.admin_url'))
             app()->setLocale(session('back-end', $locale));
         else
             app()->setLocale(session('front-end', $locale));
