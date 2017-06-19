@@ -6,6 +6,8 @@
     "adminMenu": [
         {
             "path": "admin\/languages",
+            "route": "admin.languages.index",
+            "parent": "admin\/hc",
             "translation": "HCLanguages::languages.page_title",
             "icon": "fa-language",
             "aclPermission": "interactivesolutions_honeycomb_languages_languages_list"
