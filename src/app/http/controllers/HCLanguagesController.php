@@ -32,10 +32,6 @@ class HCLanguagesController extends HCBaseController
             'headers'     => $this->getAdminListHeader(),
         ];
 
-        if (auth()->user()->can('interactivesolutions_honeycomb_languages_languages_update')) {
-            $config['actions'][] = 'update';
-        }
-
         $config['actions'][] = 'search';
 
         return hcview('HCCoreUI::admin.content.list', ['config' => $config]);
