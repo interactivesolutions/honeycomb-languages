@@ -74,7 +74,7 @@ if (!function_exists('getHCLanguagesOptions'))
      * @return \Illuminate\Support\Collection
      * @throws Exception
      */
-    function getHCLanguagesOptions(?string $type = null, array $columns = [])
+    function getHCLanguagesOptions(string $type = null, array $columns = [])
     {
         $columns[] = 'iso_639_1 as id';
 
