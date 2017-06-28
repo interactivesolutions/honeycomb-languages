@@ -49,7 +49,7 @@ if (!function_exists('getHCLanguages'))
     /**
      * Retrieving languages
      *
-     * @param string $key
+     * @param string $key - front_end, back_end, content
      * @param bool $asArray
      * @return mixed
      */
@@ -61,5 +61,33 @@ if (!function_exists('getHCLanguages'))
             return $list->pluck('iso_639_1')->toArray();
 
         return $list;
+    }
+}
+
+if (!function_exists('getHCLanguagesOptions'))
+{
+    /**
+     * Retrieving languages
+     *
+     * @param null|string $type
+     * @param array $columns
+     * @return \Illuminate\Support\Collection
+     * @throws Exception
+     */
+    function getHCLanguagesOptions(?string $type = null, array $columns = [])
+    {
+        $columns[] = 'iso_639_1 as id';
+
+        if( ! $type ) {
+            return HCLanguages::select($columns)->get();
+        }
+
+        $types = ['front_end', 'back_end', 'content'];
+
+        if( ! in_array($type, $types) ) {
+            throw new \Exception('Incorrect given type');
+        }
+
+        return HCLanguages::where($type, '1')->select($columns)->get();
     }
 }
