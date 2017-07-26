@@ -2,7 +2,7 @@
 
 use interactivesolutions\honeycomblanguages\app\models\HCLanguages;
 
-if (!function_exists ('getHCFrontEndLanguages')) {
+if( ! function_exists('getHCFrontEndLanguages') ) {
 
     /**
      * Getting available frontEnd languages
@@ -16,7 +16,7 @@ if (!function_exists ('getHCFrontEndLanguages')) {
     }
 }
 
-if (!function_exists ('getHCBackEndLanguages')) {
+if( ! function_exists('getHCBackEndLanguages') ) {
 
     /**
      * Getting available backend languages
@@ -30,7 +30,7 @@ if (!function_exists ('getHCBackEndLanguages')) {
     }
 }
 
-if (!function_exists ('getHCContentLanguages')) {
+if( ! function_exists('getHCContentLanguages') ) {
 
     /**
      * Getting available content languages
@@ -40,12 +40,23 @@ if (!function_exists ('getHCContentLanguages')) {
      */
     function getHCContentLanguages(bool $asArray = true)
     {
-        return getHCLanguages('content', $asArray);
+        $available = getHCLanguages('content', $asArray);
+
+        $current = session('content', app()->getLocale());
+
+        if( ! $current || ! in_array($current, $available) ) {
+            return $available;
+        }
+
+        $reordered = array_diff($available, [$current]);
+
+        array_unshift($reordered, $current);
+
+        return $reordered;
     }
 }
 
-if (!function_exists('getHCLanguages'))
-{
+if( ! function_exists('getHCLanguages') ) {
     /**
      * Retrieving languages
      *
@@ -57,15 +68,14 @@ if (!function_exists('getHCLanguages'))
     {
         $list = HCLanguages::where($key, 1)->get();
 
-        if ($asArray)
+        if( $asArray )
             return $list->pluck('iso_639_1')->toArray();
 
         return $list;
     }
 }
 
-if (!function_exists('getHCLanguagesOptions'))
-{
+if( ! function_exists('getHCLanguagesOptions') ) {
     /**
      * Retrieving languages
      *
