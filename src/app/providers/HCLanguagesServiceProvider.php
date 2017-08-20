@@ -16,12 +16,10 @@ class HCLanguagesServiceProvider extends HCBaseServiceProvider
 
     public $serviceProviderNameSpace = 'HCLanguages';
 
-    public function registerRouterItems (Router $router)
+    public function registerMiddleWare(Router $router)
     {
-        parent::registerRouterItems($router);
         $router->pushMiddleWareToGroup ('web', HCLanguage::class);
     }
-
 }
 
 

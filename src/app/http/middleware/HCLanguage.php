@@ -3,19 +3,24 @@
 namespace interactivesolutions\honeycomblanguages\app\http\middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 
 class HCLanguage
 {
-    public function handle ($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        $locale = app()->getLocale();
+        $firstSegment = $request->segment(1);
+        $noLanguage = config('hc.noLanguage');
+        array_push($noLanguage, config('hc.admin_url'));
 
-        if ($request->segment (1) == config('hc.admin_url'))
-            app()->setLocale(session('back-end', $locale));
-        else
-            app()->setLocale(session('front-end', $locale));
+        if (in_array($firstSegment, $noLanguage))
+            return $next($request);
 
+        elseif (in_array($firstSegment, getHCFrontEndLanguages())) {
+            app()->setLocale($firstSegment);
+            return $next($request);
+        }
 
-        return $next($request);
+        return redirect(str_replace('/' . $firstSegment . '/', '/' . app()->getLocale() . '/', $request->fullUrl()));
     }
 }
