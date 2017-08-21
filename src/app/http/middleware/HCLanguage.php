@@ -10,6 +10,7 @@ class HCLanguage
     public function handle(Request $request, Closure $next)
     {
         $firstSegment = $request->segment(1);
+
         $noLanguage = config('hc.noLanguage');
         array_push($noLanguage, config('hc.admin_url'));
 
@@ -20,6 +21,8 @@ class HCLanguage
             app()->setLocale($firstSegment);
             return $next($request);
         }
+        elseif ($firstSegment == null)
+            return redirect($request->fullUrl() . '/' . app()->getLocale());
 
         return redirect(str_replace('/' . $firstSegment . '/', '/' . app()->getLocale() . '/', $request->fullUrl()));
     }
