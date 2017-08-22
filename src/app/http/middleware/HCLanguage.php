@@ -16,7 +16,6 @@ class HCLanguage
 
         if (in_array($firstSegment, $noLanguage))
             return $next($request);
-
         elseif (in_array($firstSegment, getHCFrontEndLanguages())) {
             app()->setLocale($firstSegment);
             return $next($request);
@@ -24,6 +23,13 @@ class HCLanguage
         elseif ($firstSegment == null)
             return redirect($request->fullUrl() . '/' . app()->getLocale());
 
-        return redirect(str_replace('/' . $firstSegment . '/', '/' . app()->getLocale() . '/', $request->fullUrl()));
+        $segments = $request->segments();
+
+        if (strlen($segments[0]) == 2)
+            $segments[0] = app()->getLocale();
+        else
+            $segments = array_prepend($segments, app()->getLocale());
+
+        return redirect(implode('/', $segments));
     }
 }
