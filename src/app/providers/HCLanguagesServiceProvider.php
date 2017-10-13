@@ -18,7 +18,9 @@ class HCLanguagesServiceProvider extends HCBaseServiceProvider
 
     public function registerMiddleWare(Router $router)
     {
-        $router->pushMiddleWareToGroup ('web', HCLanguage::class);
+        if( config('hc.multiLanguage') ) {
+            $router->pushMiddleWareToGroup('web', HCLanguage::class);
+        }
     }
 }
 
