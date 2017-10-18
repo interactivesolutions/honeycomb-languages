@@ -3,7 +3,7 @@
 namespace interactivesolutions\honeycomblanguages\app\providers;
 
 use Illuminate\Routing\Router;
-use interactivesolutions\honeycombcore\providers\HCBaseServiceProvider;
+use InteractiveSolutions\HoneycombCore\Providers\HCBaseServiceProvider;
 use interactivesolutions\honeycomblanguages\app\http\middleware\HCLanguage;
 
 class HCLanguagesServiceProvider extends HCBaseServiceProvider
@@ -18,7 +18,7 @@ class HCLanguagesServiceProvider extends HCBaseServiceProvider
 
     public function registerMiddleWare(Router $router)
     {
-        if( config('hc.multiLanguage') ) {
+        if (config('hc.multiLanguage')) {
             $router->pushMiddleWareToGroup('web', HCLanguage::class);
         }
     }

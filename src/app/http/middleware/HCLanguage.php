@@ -14,21 +14,23 @@ class HCLanguage
         $noLanguage = config('hc.noLanguage');
         array_push($noLanguage, config('hc.admin_url'));
 
-        if (in_array($firstSegment, $noLanguage))
+        if (in_array($firstSegment, $noLanguage)) {
             return $next($request);
-        elseif (in_array($firstSegment, getHCFrontEndLanguages())) {
+        } elseif (in_array($firstSegment, getHCFrontEndLanguages())) {
             app()->setLocale($firstSegment);
+
             return $next($request);
-        }
-        elseif ($firstSegment == null)
+        } elseif ($firstSegment == null) {
             return redirect($request->fullUrl() . '/' . app()->getLocale());
+        }
 
         $segments = $request->segments();
 
-        if (strlen($segments[0]) == 2)
+        if (strlen($segments[0]) == 2) {
             $segments[0] = app()->getLocale();
-        else
+        } else {
             $segments = array_prepend($segments, app()->getLocale());
+        }
 
         return redirect(implode('/', $segments));
     }

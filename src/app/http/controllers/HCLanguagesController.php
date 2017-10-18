@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Session;
-use interactivesolutions\honeycombcore\errors\facades\HCLog;
-use interactivesolutions\honeycombcore\http\controllers\HCBaseController;
+use InteractiveSolutions\HoneycombCore\Errors\Facades\HCLog;
+use InteractiveSolutions\HoneycombCore\Http\Controllers\HCBaseController;
 use interactivesolutions\honeycomblanguages\app\models\HCLanguages;
 
 class HCLanguagesController extends HCBaseController
@@ -24,12 +24,12 @@ class HCLanguagesController extends HCBaseController
     public function adminIndex()
     {
         $config = [
-            'title'       => trans('HCLanguages::languages.page_title'),
-            'listURL'     => route('admin.api.languages'),
-            'newFormUrl'  => route('admin.api.form-manager', ['languages-new']),
+            'title' => trans('HCLanguages::languages.page_title'),
+            'listURL' => route('admin.api.languages'),
+            'newFormUrl' => route('admin.api.form-manager', ['languages-new']),
             'editFormUrl' => route('admin.api.form-manager', ['languages-edit']),
-            'imagesUrl'   => route('resource.get', ['/']),
-            'headers'     => $this->getAdminListHeader(),
+            'imagesUrl' => route('resource.get', ['/']),
+            'headers' => $this->getAdminListHeader(),
         ];
 
         $config['actions'][] = 'search';
@@ -46,39 +46,39 @@ class HCLanguagesController extends HCBaseController
     {
         return [
             'language_family' => [
-                "type"  => "text",
+                "type" => "text",
                 "label" => trans('HCLanguages::languages.language_family'),
             ],
-            'language'        => [
-                "type"  => "text",
+            'language' => [
+                "type" => "text",
                 "label" => trans('HCLanguages::languages.language'),
             ],
-            'native_name'     => [
-                "type"  => "text",
+            'native_name' => [
+                "type" => "text",
                 "label" => trans('HCLanguages::languages.native_name'),
             ],
-            'iso_639_1'       => [
-                "type"  => "text",
+            'iso_639_1' => [
+                "type" => "text",
                 "label" => trans('HCLanguages::languages.iso_639_1'),
             ],
-            'iso_639_2'       => [
-                "type"  => "text",
+            'iso_639_2' => [
+                "type" => "text",
                 "label" => trans('HCLanguages::languages.iso_639_2'),
             ],
-            'front_end'       => [
-                "type"  => "checkbox",
+            'front_end' => [
+                "type" => "checkbox",
                 "label" => trans('HCLanguages::languages.front_end'),
-                "url"   => route('admin.api.languages.update.strict', 'id')
+                "url" => route('admin.api.languages.update.strict', 'id'),
             ],
-            'back_end'        => [
-                "type"  => "checkbox",
+            'back_end' => [
+                "type" => "checkbox",
                 "label" => trans('HCLanguages::languages.back_end'),
-                "url"   => route('admin.api.languages.update.strict', 'id')
+                "url" => route('admin.api.languages.update.strict', 'id'),
             ],
-            'content'         => [
-                "type"  => "checkbox",
+            'content' => [
+                "type" => "checkbox",
                 "label" => trans('HCLanguages::languages.content'),
-                "url"   => route('admin.api.languages.update.strict', 'id')
+                "url" => route('admin.api.languages.update.strict', 'id'),
             ],
 
         ];
@@ -107,12 +107,13 @@ class HCLanguagesController extends HCBaseController
     {
         $with = [];
 
-        if ($select == null)
+        if ($select == null) {
             $select = HCLanguages::getFillableFields();
+        }
 
         $list = HCLanguages::with($with)->select($select)
             // add filters
-            ->where(function ($query) use ($select) {
+            ->where(function($query) use ($select) {
                 $query = $this->getRequestParameters($query, $select);
             });
 
@@ -136,7 +137,7 @@ class HCLanguagesController extends HCBaseController
      */
     protected function searchQuery(Builder $query, string $phrase)
     {
-        return $query->where (function (Builder $query) use ($phrase) {
+        return $query->where(function(Builder $query) use ($phrase) {
             $query->where('language_family', 'LIKE', '%' . $phrase . '%')
                 ->orWhere('language', 'LIKE', '%' . $phrase . '%')
                 ->orWhere('native_name', 'LIKE', '%' . $phrase . '%')
@@ -169,37 +170,37 @@ class HCLanguagesController extends HCBaseController
         return $record;
     }
 
-    public function changeLanguage (string $location, string $lang)
+    public function changeLanguage(string $location, string $lang)
     {
-        switch ($location)
-        {
+        switch ($location) {
             case 'front-end' :
 
-                if (in_array($lang, getHCFrontEndLanguages()))
-                {
+                if (in_array($lang, getHCFrontEndLanguages())) {
                     session('front-end', $lang);
                     session('content', $lang);
-                }
-                else
+                } else {
                     return HCLog::error('L-001', trans('HCTranslations::core.language_not_found'));
+                }
 
                 break;
 
             case 'back-end' :
 
-                if (in_array($lang, getHCBackEndLanguages()))
+                if (in_array($lang, getHCBackEndLanguages())) {
                     Session::set('back-end', $lang);
-                else
+                } else {
                     return HCLog::error('L-002', trans('HCTranslations::core.language_not_found'));
+                }
 
                 break;
 
             case 'content' :
 
-                if (in_array($lang, getHCContentLanguages()))
+                if (in_array($lang, getHCContentLanguages())) {
                     Session::set('content', $lang);
-                else
+                } else {
                     return HCLog::error('L-003', trans('HCTranslations::core.language_not_found'));
+                }
 
                 break;
         }
