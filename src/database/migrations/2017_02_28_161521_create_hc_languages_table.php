@@ -14,7 +14,7 @@ class CreateHcLanguagesTable extends Migration
     public function up()
     {
         Schema::create('hc_languages', function(Blueprint $table) {
-            $table->string('id', 36)->unique('id_UNIQUE');
+            $table->string('id', 36)->unique();
             $table->integer('count', true);
             $table->string('language_family');
             $table->string('language');
